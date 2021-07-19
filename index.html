@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html>
+    <style>
+        body {
+          touch-action: manipulation;
+        }
+    </style>
     <head>
         Welcome to manolov.me
     </head>
@@ -8,6 +13,8 @@
 
 <canvas id="snakeCanvas" width="480" height="320" style="border:1px solid #000000;">
 </canvas>
+
+<p>On a keyboard press the left and right arrow keys to turn. On a touchscreen tap the left and right side of the board.</p>
 
 <script>
     const canvas = document.getElementById('snakeCanvas');
@@ -71,15 +78,13 @@
 
         if (touchPos.x < canvas.width / 2 && touchPos.x > 0) {
             snakeDirection = (snakeDirection > 0) ? snakeDirection - 1 : 3;
-            console.log('Left pressed');
         }
         else if (touchPos.x > canvas.width / 2 && touchPos.x < canvas.width) {
             snakeDirection = (snakeDirection < 3) ? snakeDirection + 1 : 0;
-            console.log('Right pressed');
         }
     }
 
-    canvas.addEventListener('keydown', handleInput, false);
+    window.addEventListener('keydown', handleInput, false);
     canvas.addEventListener('touchstart', handleTouchInput, false);
 
     const update = () => {
@@ -126,6 +131,8 @@
 
     const render = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'lightgray';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         ctx.fillStyle = 'green';
         snakePos.forEach(pos => ctx.fillRect(pos[0] * 20, pos[1] * 20, 20, 20))
