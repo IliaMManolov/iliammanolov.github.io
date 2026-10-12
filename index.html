@@ -11,7 +11,7 @@
 <body>
 <p>Until I decide what to do with this here's a game of snake:</p>
 
-<canvas id="snakeCanvas" width="480" height="320" style="border:1px solid #000000;">
+<canvas id="snakeCanvas" width="36" height="36" style="border:1px solid #000000;">
 </canvas>
 
 <p>On a keyboard press the left and right arrow keys to turn. On a touchscreen tap the left and right side of the board.</p>
@@ -19,7 +19,8 @@
 <script>
     const canvas = document.getElementById('snakeCanvas');
     const ctx = canvas.getContext('2d');
-    const boardSize = [24, 16];
+    const boardSize = [12, 12];
+    const blockSize = 3;
 
     const getRandomInt = (max) => Math.floor(Math.random() * max);
     const getRandomApple = () => [getRandomInt(boardSize[0]), getRandomInt(boardSize[1])]
@@ -135,10 +136,10 @@
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         ctx.fillStyle = 'green';
-        snakePos.forEach(pos => ctx.fillRect(pos[0] * 20, pos[1] * 20, 20, 20))
+        snakePos.forEach(pos => ctx.fillRect(pos[0] * blockSize, pos[1] * blockSize, blockSize, blockSize))
 
         ctx.fillStyle = 'red';
-        ctx.fillRect(applePos[0] * 20, applePos[1] * 20, 20, 20);
+        ctx.fillRect(applePos[0] * blockSize, applePos[1] * blockSize, blockSize, blockSize);
     }
 
     const gameLoop = () => {
