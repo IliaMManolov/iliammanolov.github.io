@@ -1,3 +1,13 @@
+:root {
+  --bg: #1B1C1B;
+  --text: #F8F8F8;
+}
+
+
 body {
   touch-action: manipulation;
+  background-color: var(--bg);
+  color: var(--text);
+  color-scheme: dark;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
