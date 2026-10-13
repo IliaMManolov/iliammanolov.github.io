@@ -1,6 +1,8 @@
 :root {
   --bg: #1B1C1B;
-  --text: #F8F8F8;
+  --text: #CFCFCF;
+  --heading: #FFFFFF;
+  --subheading: #5a5a5a;
 }
 
 
@@ -10,4 +12,37 @@ body {
   color: var(--text);
   color-scheme: dark;
   font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+}
+
+main {
+  max-width: 65ch;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+
+h1, h2 {
+  font-size: 1em;
+  margin: 0;
+}
+
+h1 {
+  color: var(--heading);
+  font-weight: 600;
+}
+
+h2 {
+  color: var(--subheading);
+  font-weight: 400;
+}
+
+.ps {
+  font-size: 0.8em;
+  color: #4A4A4A;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: #777;
+  text-underline-offset: 3px;
 }
