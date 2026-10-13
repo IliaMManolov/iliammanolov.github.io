@@ -59,9 +59,31 @@ a {
 #snakeCanvas.expanded {
   width: 100%;
   cursor: default;
+  margin-bottom: 0rem;
 }
 
 #snakeCanvas:hover {
   filter: brightness(1.2);
 }
 
+.snake-help {
+  display: none;
+  font-size: 0.8em;
+  color: var(--subheading);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+#snakeCanvas.expanded + .snake-help {
+  display: block;
+}
+
+.help-touch {
+  display: none;
+}
+
+@media (pointer: coarse) {
+  .help-desktop { display: none; }
+  .help-touch { display: inline; }
+}
