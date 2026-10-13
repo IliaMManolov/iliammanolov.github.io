@@ -1,7 +1,11 @@
 const canvas = document.getElementById('snakeCanvas');
 const ctx = canvas.getContext('2d');
-const boardSize = [12, 12];
-const blockSize = 3;
+const boardSize = [8, 8];
+const blockSize = 1;
+
+const boardColour = '#262726';
+const snakeColour = '#CFCFCF';
+const appleColour = '#C8553D';
 
 const getRandomInt = (max) => Math.floor(Math.random() * max);
 const getRandomApple = () => [getRandomInt(boardSize[0]), getRandomInt(boardSize[1])]
@@ -113,13 +117,13 @@ const update = () => {
 
 const render = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'lightgray';
+    ctx.fillStyle = boardColour;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = 'green';
+    ctx.fillStyle = snakeColour;
     snakePos.forEach(pos => ctx.fillRect(pos[0] * blockSize, pos[1] * blockSize, blockSize, blockSize))
 
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = appleColour;
     ctx.fillRect(applePos[0] * blockSize, applePos[1] * blockSize, blockSize, blockSize);
 }
 
@@ -130,4 +134,4 @@ const gameLoop = () => {
     }
 }
 
-setInterval(gameLoop, 100);
+setInterval(gameLoop, 200);
