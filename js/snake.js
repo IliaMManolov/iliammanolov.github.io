@@ -34,19 +34,26 @@ const getApple = () => {
 
 var applePos = getApple();
 
-console.log(applePos)
 var snakeDirection = 0;
 
 var gameOver = false;
 
 const handleInput = (e) => {
+    if (!canvas.classList.contains('expanded')) return;
+
     if (e.key == "Left" || e.key == "ArrowLeft") {
+        e.preventDefault()
         snakeDirection = (snakeDirection > 0) ? snakeDirection - 1 : 3;
         console.log('Left pressed');
     }
     else if (e.key == "Right" || e.key == "ArrowRight") {
+        e.preventDefault()
         snakeDirection = (snakeDirection < 3) ? snakeDirection + 1 : 0;
         console.log('Right pressed');
+    }
+    else if (e.key == "Escape") {
+        e.preventDefault();
+        shrink();
     }
 }
 
@@ -60,18 +67,51 @@ const getTouchPos = (canvasDom, touchEvent) => {
 }
 
 const handleTouchInput = (e) => {
+    if (!canvas.classList.contains('expanded')) return;
     const touchPos = getTouchPos(canvas, e);
+    const width = canvas.getBoundingClientRect().width;
 
-    if (touchPos.x < canvas.width / 2 && touchPos.x > 0) {
+    if (touchPos.x < width / 2 && touchPos.x > 0) {
         snakeDirection = (snakeDirection > 0) ? snakeDirection - 1 : 3;
     }
-    else if (touchPos.x > canvas.width / 2 && touchPos.x < canvas.width) {
+    else if (touchPos.x > width / 2 && touchPos.x < width) {
         snakeDirection = (snakeDirection < 3) ? snakeDirection + 1 : 0;
     }
 }
 
+const isExpanded = () => canvas.classList.contains('expanded');
+const expand = () => canvas.classList.add('expanded');
+const shrink = () => canvas.classList.remove('expanded');
+
+const handleCanvasPointer = (e) => {
+    if (!isExpanded()) {
+        expand();
+        return;
+    }
+
+    // A mouse click on the expanded game shrinks it
+    if (e.pointerType === 'mouse') {
+        shrink();
+        return;
+    }
+
+    // A tap steers: the left half turns left, the right half turns right
+    const rect = canvas.getBoundingClientRect();
+    if (e.clientX - rect.left < rect.width / 2)
+        snakeDirection = (snakeDirection > 0) ? snakeDirection - 1 : 3;
+    else
+        snakeDirection = (snakeDirection < 3) ? snakeDirection + 1 : 0;
+}
+
+// A click or tap anywhere outside the game shrinks it
+const handlePagePointer = (e) => {
+    if (e.target !== canvas)
+        shrink();
+}
+
 window.addEventListener('keydown', handleInput, false);
-canvas.addEventListener('touchstart', handleTouchInput, false);
+canvas.addEventListener('pointerdown', handleCanvasPointer);
+document.addEventListener('pointerdown', handlePagePointer);
 
 const update = () => {
     var nextPos = [0, 0];
